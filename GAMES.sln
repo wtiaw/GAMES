@@ -6,6 +6,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "P0", "GAMES101\P0\P0.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Assignment1", "GAMES101\Assignment1\Assignment1.vcxproj", "{07F9D058-79F1-4F65-B9FD-D698C3A3EB09}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Assignment2", "GAMES101\Assignment2\Assignment2.vcxproj", "{07F9D058-79F1-4F65-B9FD-D698C3A3EB09}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
