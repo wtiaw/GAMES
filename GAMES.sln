@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GAMES101", "GAMES101", "{B6B7C89D-BF40-4374-9318-2D3A7A35B647}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "P0", "GAMES101\P0\P0.vcxproj", "{7B6E81B8-8D26-4409-94AA-E7E6CD68AB7D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Assignment1", "GAMES101\Assignment1\Assignment1.vcxproj", "{07F9D058-79F1-4F65-B9FD-D698C3A3EB09}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
+		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7B6E81B8-8D26-4409-94AA-E7E6CD68AB7D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7B6E81B8-8D26-4409-94AA-E7E6CD68AB7D}.Debug|Win32.Build.0 = Debug|Win32
+		{7B6E81B8-8D26-4409-94AA-E7E6CD68AB7D}.Debug|x64.ActiveCfg = Debug|x64
+		{7B6E81B8-8D26-4409-94AA-E7E6CD68AB7D}.Debug|x64.Build.0 = Debug|x64
+		{7B6E81B8-8D26-4409-94AA-E7E6CD68AB7D}.Release|Win32.ActiveCfg = Release|Win32
+		{7B6E81B8-8D26-4409-94AA-E7E6CD68AB7D}.Release|Win32.Build.0 = Release|Win32
+		{7B6E81B8-8D26-4409-94AA-E7E6CD68AB7D}.Release|x64.ActiveCfg = Release|x64
+		{7B6E81B8-8D26-4409-94AA-E7E6CD68AB7D}.Release|x64.Build.0 = Release|x64
+		{07F9D058-79F1-4F65-B9FD-D698C3A3EB09}.Debug|Win32.ActiveCfg = Debug|Win32
+		{07F9D058-79F1-4F65-B9FD-D698C3A3EB09}.Debug|Win32.Build.0 = Debug|Win32
+		{07F9D058-79F1-4F65-B9FD-D698C3A3EB09}.Debug|x64.ActiveCfg = Debug|x64
+		{07F9D058-79F1-4F65-B9FD-D698C3A3EB09}.Debug|x64.Build.0 = Debug|x64
+		{07F9D058-79F1-4F65-B9FD-D698C3A3EB09}.Release|Win32.ActiveCfg = Release|Win32
+		{07F9D058-79F1-4F65-B9FD-D698C3A3EB09}.Release|Win32.Build.0 = Release|Win32
+		{07F9D058-79F1-4F65-B9FD-D698C3A3EB09}.Release|x64.ActiveCfg = Release|x64
+		{07F9D058-79F1-4F65-B9FD-D698C3A3EB09}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7B6E81B8-8D26-4409-94AA-E7E6CD68AB7D} = {B6B7C89D-BF40-4374-9318-2D3A7A35B647}
+		{07F9D058-79F1-4F65-B9FD-D698C3A3EB09} = {B6B7C89D-BF40-4374-9318-2D3A7A35B647}
+	EndGlobalSection
+EndGlobal
