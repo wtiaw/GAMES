@@ -32,11 +32,11 @@ Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio, float z
 {
     Eigen::Matrix4f projection = Eigen::Matrix4f::Identity();
 
-    Eigen::Matrix4f m;
-    m << zNear, 0, 0, 0,
-        0, zNear, 0, 0,
-        0, 0, zNear + zFar, -zNear * zFar,
-        0, 0, 1, 0;
+    // Eigen::Matrix4f m;
+    // m << zNear, 0, 0, 0,
+    //     0, zNear, 0, 0,
+    //     0, 0, zNear + zFar, -zNear * zFar,
+    //     0, 0, 1, 0;
 
     float halve = eye_fov / 2.0 / 180.0 * std::acos(-1);
     float top = -std::tan(halve) * zNear;
@@ -44,21 +44,28 @@ Eigen::Matrix4f get_projection_matrix(float eye_fov, float aspect_ratio, float z
     float right = top * aspect_ratio;
     float left = -right;
 
-    Eigen::Matrix4f n, p;
-
-    //平移矩阵
-    n << 2 / (right - left), 0, 0, 0,
-        0, 2 / (top - bottom), 0, 0,
-        0, 0, 2 / (zNear - zFar), 0,
-        0, 0, 0, 1;
-
-    //缩放矩阵
-    p << 1, 0, 0, -(right + left) / 2,
+    // 1. translate to origin
+    Eigen::Matrix4f trans;
+    trans << 1, 0, 0, -(right + left) / 2,
         0, 1, 0, -(top + bottom) / 2,
         0, 0, 1, -(zNear + zFar) / 2,
         0, 0, 0, 1;
+    // 2. scale to [-1, 1]
+    Eigen::Matrix4f ortho;
+    ortho << 2 / (right - left), 0, 0, 0,
+        0, 2 / (top - bottom), 0, 0,
+        0, 0, (2 / (zNear - zFar)), 0,
+        0, 0, 0, 1;
+    ortho = ortho * trans;
 
-    projection = n * p * m * projection;
+    // perspective to orthographic projection
+    Eigen::Matrix4f persp;
+    persp << zNear, 0, 0, 0,
+        0, zNear, 0, 0,
+        0, 0, zNear + zFar, -zNear * zFar,
+        0, 0, 1, 0;
+
+    projection = ortho * persp;
 
     return projection;
 }

@@ -42,31 +42,24 @@ auto to_vec4(const Eigen::Vector3f& v3, float w = 1.0f)
 
 static bool insideTriangle(float x, float y, const Vector3f* _v)
 {
-    // TODO : Implement this function to check if the point (x, y) is inside the triangle represented by _v[0], _v[1], _v[2]
-    float res = -1;
-    for (int i = 0; i < 3; i++)
+    Eigen::Vector3f point = { x,y,0 };
+    Eigen::Vector3f vec0 = _v[1] - _v[0];//ÈýÌõ±ßÏòÁ¿
+    Eigen::Vector3f vec1 = _v[2] - _v[1];
+    Eigen::Vector3f vec2 = _v[0] - _v[2];
+
+    float a = ((point - _v[0]).cross(vec0)).z();//×ö²æ»ý
+    float b = ((point - _v[1]).cross(vec1)).z();
+    float c = ((point - _v[2]).cross(vec2)).z();
+
+
+    if ((a > 0 && b > 0 && c > 0)||(a < 0 && b < 0 && c < 0))
     {
-        Eigen::Vector3f p0 = {x, y, 0};
-        Eigen::Vector3f p1 = _v[i];
-        Eigen::Vector3f p2 = _v[(i+1)%3];
-
-        Eigen::Vector3f v1 = p1 - p0;
-        Eigen::Vector3f v2 = p2 - p2;
-
-        float cross = v1.cross(v2).z();
-        if (cross == 0)
-        {
-            continue;
-        }
-
-        
-        // if (cross < 0)
-        // {
-        //     return false;
-        // }
+        return true;//ÔÚÈý½ÇÐÎÀïÃæ
     }
-    
-    return true;
+    else
+    {
+        return false;//²»ÔÚ
+    }
 }
 
 static std::tuple<float, float, float> computeBarycentric2D(float x, float y, const Vector3f* v)
@@ -153,7 +146,7 @@ void rst::rasterizer::rasterize_triangle(const Triangle& t)
     {
         for (int x = min_x; x < max_x; x++)
         {
-            //åœ¨ä¸‰è§’å½¢å†…éƒ¨è¿›è¡Œæ·±åº¦æŸ¥è¯¢ä»¥åŠç€è‰²
+            //ÔÚÈý½ÇÐÎÄÚ²¿½øÐÐÉî¶È²éÑ¯ÒÔ¼°×ÅÉ«
             if (insideTriangle(x, y, t.v))
             {
                 auto [alpha, beta, gamma] = computeBarycentric2D(x, y, t.v);
