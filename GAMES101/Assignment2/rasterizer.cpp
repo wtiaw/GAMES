@@ -42,23 +42,23 @@ auto to_vec4(const Eigen::Vector3f& v3, float w = 1.0f)
 
 static bool insideTriangle(float x, float y, const Vector3f* _v)
 {
-    Eigen::Vector3f point = { x,y,0 };
-    Eigen::Vector3f vec0 = _v[1] - _v[0];//三条边向量
+    Eigen::Vector3f point = {x, y, 0};
+    Eigen::Vector3f vec0 = _v[1] - _v[0]; //三条边向量
     Eigen::Vector3f vec1 = _v[2] - _v[1];
     Eigen::Vector3f vec2 = _v[0] - _v[2];
 
-    float a = ((point - _v[0]).cross(vec0)).z();//做叉积
+    float a = ((point - _v[0]).cross(vec0)).z(); //做叉积
     float b = ((point - _v[1]).cross(vec1)).z();
     float c = ((point - _v[2]).cross(vec2)).z();
 
 
-    if ((a > 0 && b > 0 && c > 0)||(a < 0 && b < 0 && c < 0))
+    if ((a > 0 && b > 0 && c > 0) || (a < 0 && b < 0 && c < 0))
     {
-        return true;//在三角形里面
+        return true; //在三角形里面
     }
     else
     {
-        return false;//不在
+        return false; //不在
     }
 }
 
@@ -146,10 +146,16 @@ void rst::rasterizer::rasterize_triangle(const Triangle& t)
     {
         for (int x = min_x; x < max_x; x++)
         {
+            float fineness = 0;
+            if (insideTriangle(x + 0.25, y + 0.25, t.v)) fineness += 0.25;
+            if (insideTriangle(x + 0.25, y + 0.75, t.v)) fineness += 0.25;
+            if (insideTriangle(x + 0.75, y + 0.25, t.v)) fineness += 0.25;
+            if (insideTriangle(x + 0.75, y + 0.75, t.v)) fineness += 0.25;
+
             //在三角形内部进行深度查询以及着色
-            if (insideTriangle(x, y, t.v))
+            if (fineness != 0)
             {
-                auto [alpha, beta, gamma] = computeBarycentric2D(x, y, t.v);
+                auto [alpha, beta, gamma] = computeBarycentric2D(x + 0.5, y + 0.5, t.v);
                 float w_reciprocal = 1.0 / (alpha / v[0].w() + beta / v[1].w() + gamma / v[2].w());
                 float z_interpolated = alpha * v[0].z() / v[0].w() + beta * v[1].z() / v[1].w() + gamma * v[2].z() /
                     v[2].w();
@@ -158,7 +164,7 @@ void rst::rasterizer::rasterize_triangle(const Triangle& t)
                 if (z_interpolated < depth_buf[get_index(x, y)])
                 {
                     depth_buf[get_index(x, y)] = z_interpolated;
-                    set_pixel(Vector3f(x, y, 1), t.getColor());
+                    set_pixel(Vector3f(x, y, 1), t.getColor() * fineness);
                 }
             }
         }
